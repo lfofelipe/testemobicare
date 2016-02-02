@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+<body>
+	<h:form>
+		Nome: <h:inputText value="#{empCtrl.empregado.nome}" />
+		Função: <h:inputText value="#{empCtrl.empregado.funcao}" />
+		<h:commandButton value="Salvar" actionListener="#{empCtrl.salvar()}" />
+	</h:form>
+	<h:form>
+	<h:messages/>
+		<h:dataTable value="#{empCtrl.empregadoList}" var="emp" border="1">
+		<f:facet name="header">Lista de empregados</f:facet>
+		<h:column>
+		<f:facet name="header">ID</f:facet>
+		#{emp.id}
+		</h:column>
+		<h:column>
+		<f:facet name="header">Nome</f:facet>
+		#{emp.nome}</h:column>
+		<h:column>
+		<f:facet name="header">Função</f:facet>
+		#{emp.funcao}</h:column>
+				<h:column>
+		<f:facet name="header">Opções</f:facet>
+		<h:commandButton value="editar" actionListener="#{empCtrl.editar(emp)}"/>
+		<h:commandButton value="excluir" actionListener="#{empCtrl.excluir(emp)}"/>
+		</h:column>
+
+		</h:dataTable>
+
+	</h:form>
+</body>
+</html>

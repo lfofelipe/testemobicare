@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<body>
+	<h:form>
+		<h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5">
+			<h:outputLabel value="Cadastro de Empregados" />
+		</h:panelGrid>
+		<h:panelGrid columns="7" style="margin-bottom:10px" cellpadding="5">
+			<h:outputLabel for="departamento" value="Departamento:" />
+			<h:selectOneMenu id="departamento" style="width:210px" value="#{empCtrl.empregado.departamento}" converter="#{departamentoConverter}">
+				<f:selectItems value="#{depCtrl.departamentoList}" var="d" itemLabel="#{d.descricao}"></f:selectItems>
+			</h:selectOneMenu>
+			<h:outputLabel for="nome" value="Nome:" />
+			<h:inputText id="nome" value="#{empCtrl.empregado.nome}" />
+			<h:outputLabel for="funcao" value="Função:" />
+			<h:inputText id="funcao" value="#{empCtrl.empregado.funcao}" />
+			<h:commandButton value="Salvar" actionListener="#{empCtrl.salvar()}" />
+		</h:panelGrid>
+	</h:form>
+	<h:form>
+		<h:messages />
+		<h:dataTable value="#{empCtrl.empregadoList}" var="emp" border="1">
+			<f:facet name="header">Lista de empregados</f:facet>
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+		#{emp.id}
+		</h:column>
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+		#{emp.nome}</h:column>
+			<h:column>
+				<f:facet name="header">Função</f:facet>
+		#{emp.funcao}</h:column>
+			<h:column>
+				<f:facet name="header">Opções</f:facet>
+				<h:commandButton value="editar"
+					actionListener="#{empCtrl.editar(emp)}" />
+				<h:commandButton value="excluir"
+					actionListener="#{empCtrl.excluir(emp)}" />
+			</h:column>
+
+		</h:dataTable>
+
+	</h:form>
+	<h:form>
+		<h:dataTable value="#{depCtrl.departamentoList}" var="dep" border="1">
+			<f:facet name="header">Lista de departamentos</f:facet>
+			<h:column><f:facet name="header">ID</f:facet>#{dep.id}</h:column>
+			<h:column><f:facet name="header">descrição</f:facet>#{dep.descricao}</h:column>
+			<h:column><f:facet name="header">Opções</f:facet><h:commandButton value="excluir" actionListener="#{depCtrl.excluir(dep)}"/>
+			</h:column>
+		</h:dataTable>
+
+	</h:form>
+	<h:outputLabel value="Quantidade de Departamentos sem empregados: " />
+	<h:outputText id="text" value="${depCtrl.departamentoZero}" />
+</body>
+</html>
